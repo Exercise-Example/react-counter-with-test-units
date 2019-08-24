@@ -1,12 +1,11 @@
-import expect from 'expect';
-import jest from 'jest-mock';
-import React from 'react';
-import Adapter from 'enzyme-adapter-react-16';
-import { shallow, configure } from 'enzyme';
-import Counter from '../../components/Counter';
+import expect from "expect";
+import jest from "jest-mock";
+import React from "react";
+import Adapter from "enzyme-adapter-react-16";
+import { shallow, configure } from "enzyme";
+import Counter from "../../components/counter";
 
-configure({adapter: new Adapter()});
-
+configure({ adapter: new Adapter() });
 
 function setup(counter = 120) {
   const actions = {
@@ -15,38 +14,35 @@ function setup(counter = 120) {
     // incrementAsync: expect.createSpy(),
     onDecrement: jest.fn()
   };
-  const component = shallow(
-    <Counter value={counter} {...actions} />
-  );
-  
+  const component = shallow(<Counter value={counter} {...actions} />);
+
   // console.log(component.find('button'))
 
   return {
     component,
     actions,
-    buttons: component.find('button'),
-    p: component.find('p')
+    buttons: component.find("button"),
+    p: component.find("p")
   };
 }
 
-describe('components', () => {
-  describe('Counter', () => {
-    it('should display count', () => {
+describe("components", () => {
+  describe("Counter", () => {
+    it("should display count", () => {
       const { p } = setup();
       expect(p.text()).toMatch(/120/);
     });
 
-    it('first button should call increment', () => {
+    it("first button should call increment", () => {
       const { buttons, actions } = setup();
-      buttons.at(0).simulate('click');
+      buttons.at(0).simulate("click");
       expect(actions.onIncrement).toHaveBeenCalled();
     });
 
-    it('second button should call decrement', () => {
+    it("second button should call decrement", () => {
       const { buttons, actions } = setup();
-      buttons.at(1).simulate('click');
+      buttons.at(1).simulate("click");
       expect(actions.onDecrement).toHaveBeenCalled();
     });
-
   });
 });
